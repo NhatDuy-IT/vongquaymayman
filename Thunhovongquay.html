@@ -2,37 +2,116 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-<!-- canonical (fixed for GitHub Pages) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vòng quay Sinh nhật 2026</title>
-    <meta name="description" content="Vòng quay Sinh nhật 2026 - " class="yoast-seo-meta-tag" />
+    <meta name="description" content="Vòng quay Sinh nhật 2026 - Trò chơi may mắn">
+    <meta name="theme-color" content="#fff">
     <style>
-    body {
-        height: 100vh;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        background-color: #ffffff;
-        background-image: url("https://vongquaymayman.co/wp-content/uploads/2026/06/Background-Vong-Quay-5-1.jpg");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        overflow: hidden; 
-    }
-    .container {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0.7); 
-        width: 100%;
-        text-align: center;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            background-image: url("https://vongquaymayman.co/wp-content/uploads/2026/06/Background-Vong-Quay-5-1.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .wheel-wrapper {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+        }
+
+        .embedvqmm {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+        }
+
+        /* Loading indicator */
+        .loading {
+            color: #666;
+            font-size: 18px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="embedvqmm" data-id="35A52560" data-rs-button="no"></div>
+        <div class="wheel-wrapper">
+            <div class="embedvqmm" data-id="35A52560" data-rs-button="no"></div>
+        </div>
     </div>
-<script src="./embed.min.js"></script>
+
+    <!-- External wheel embed script (load sequentially for better compatibility on Vercel) -->
+    <script id="vqmm-embed" src="https://vongquaymayman.co/embed.min.js" type="text/javascript"></script>
+
+    <script>
+        (function () {
+            function tryInit(attempt) {
+                try {
+                    if (window.vongquayMayMan && typeof window.vongquayMayMan.init === 'function') {
+                        window.vongquayMayMan.init();
+                        return;
+                    }
+                } catch (e) {
+                    // ignore and retry
+                }
+
+                if (attempt < 6) {
+                    setTimeout(function () { tryInit(attempt + 1); }, 250);
+                }
+            }
+
+            var embedScript = document.getElementById('vqmm-embed');
+            if (embedScript) {
+                embedScript.onload = function () { tryInit(0); };
+                embedScript.onerror = function () {
+                    // If script fails to load, do nothing (user can check network/console)
+                    console.error('Failed to load embed script from https://vongquaymayman.co/embed.min.js');
+                };
+            } else {
+                // fallback: attempt after window load
+                window.addEventListener('load', function () { tryInit(0); });
+            }
+        })();
+    </script>
 </body>
 </html>
