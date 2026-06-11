@@ -36,10 +36,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             width: 100%;
             height: 100%;
-            padding: 20px;
+            padding: 20px 20px 0 20px;
         }
 
         .wheel-wrapper {
@@ -47,9 +47,9 @@
             max-height: 100%;
             width: auto;
             height: auto;
-            /* Thu nhỏ và kéo lên nhẹ để vòng quay không bị lệch xuống dưới khi lên TV */
-            transform: translateY(-10px) scale(0.9);
-            transform-origin: center center;
+            /* Thu nhỏ và kéo lên để vòng quay không bị lệch xuống dưới khi lên TV */
+            transform: translateY(-4vh) scale(0.82);
+            transform-origin: center top;
         }
 
 
@@ -66,6 +66,19 @@
 
             .container {
                 padding: 10px;
+            }
+
+            .wheel-wrapper {
+                transform: translateY(-10px) scale(0.95);
+                transform-origin: center center;
+            }
+        }
+
+        /* TV / màn hình lớn: thu nhỏ thêm và đẩy lên trên để lộ toàn bộ vòng quay */
+        @media (min-width: 1400px) {
+            .wheel-wrapper {
+                transform: translateY(-6vh) scale(0.78);
+                transform-origin: center top;
             }
         }
 
